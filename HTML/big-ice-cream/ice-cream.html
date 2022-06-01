@@ -4,7 +4,7 @@
  * @Autor: jiuyi
  * @Date: 2022-06-01 11:30:57
  * @LastEditors: jiuyi
- * @LastEditTime: 2022-06-01 17:58:45
+ * @LastEditTime: 2022-06-01 18:01:45
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +57,6 @@
 			border: 5px solid rgb(4, 221, 250) !important;
 		}
 		.success {
-			
 		}
 	</style>
 	<body>
@@ -75,7 +74,7 @@
 			</div>
 			<div class="success">
 				<p>成功啦!</p>
-				<img src="../big-ice-cream//ice-cream-img/7.png" alt="">
+				<img src="../big-ice-cream//ice-cream-img/7.png" alt="" />
 			</div>
 		</div>
 
@@ -113,29 +112,21 @@
 							let addImg = parseInt(
 								selectedPair[1].style.backgroundImage.split('ice-cream-img/')[1][0]
 							);
-							console.log(
-								addImg,
-								`url('../big-ice-cream/ice-cream-img/${addImg + 1}.png')`,
-								`url('${imgs[randomNum(1, 5) - 1]}')`
-							);
-							if (addImg < 6) {
+							if (addImg <= 6) {
 								selectedPair[1].style.backgroundImage = `url('../big-ice-cream/ice-cream-img/${
 									addImg + 1
 								}.png')`;
 								selectedPair[0].style.backgroundImage = `url('${imgs[randomNum(1, 5)]}')`;
 							}
 							if (addImg === 6) {
-								selectedPair[1].style.backgroundImage = `url('../big-ice-cream/ice-cream-img/${
-									addImg + 1
-								}.png')`;
-								selectedPair[0].style.backgroundImage = `url('${imgs[randomNum(1, 5)]}')`;
-								console.log('成功啦');
+								console.log('=============');
 							}
+							selectedPair[0].className = selectedPair[1].className = '';
+							selectedPair = [];
 						} else {
-							console.log('配对失败');
+							selectedPair[1].className = '';
+							selectedPair.pop();
 						}
-						selectedPair[0].className = selectedPair[1].className = '';
-						selectedPair = [];
 					}
 				};
 
