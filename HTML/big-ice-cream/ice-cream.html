@@ -1,0 +1,149 @@
+<!--
+ * @Description: file content
+ * @Version: file content
+ * @Autor: jiuyi
+ * @Date: 2022-06-01 11:30:57
+ * @LastEditors: jiuyi
+ * @LastEditTime: 2022-06-01 17:58:45
+-->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<style>
+		body {
+			padding: 0;
+			margin: 0;
+		}
+		.summmer_wrapper {
+			position: relative;
+			width: 100vw;
+			height: 100vh;
+			/* background-color: rgb(91, 223, 201); */
+		}
+
+		.eliminate_wrapper {
+			position: absolute;
+			width: 220px;
+			height: 220px;
+			margin: auto;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			border-radius: 20px;
+			border: 10px solid #fff;
+			background: #fff;
+			display: grid;
+			grid-template-columns: repeat(3, 60px);
+			grid-template-rows: repeat(3, 60px);
+			grid-row-gap: 10px;
+			grid-column-gap: 10px;
+		}
+		.eliminate_wrapper div {
+			/* background-color: #000; */
+			width: 100%;
+			height: 100%;
+			border: 5px solid transparent;
+			border-radius: 20px;
+			box-sizing: border-box;
+		}
+		/* 选中 */
+		.choose {
+			border: 5px solid rgb(4, 221, 250) !important;
+		}
+		.success {
+			
+		}
+	</style>
+	<body>
+		<div class="summmer_wrapper">
+			<div class="eliminate_wrapper">
+				<div id="eliminate_1"></div>
+				<div id="eliminate_2"></div>
+				<div id="eliminate_3"></div>
+				<div id="eliminate_4"></div>
+				<div id="eliminate_5"></div>
+				<div id="eliminate_6"></div>
+				<div id="eliminate_7"></div>
+				<div id="eliminate_8"></div>
+				<div id="eliminate_9"></div>
+			</div>
+			<div class="success">
+				<p>成功啦!</p>
+				<img src="../big-ice-cream//ice-cream-img/7.png" alt="">
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			window.onload = function () {
+				const imgs = [
+					'../big-ice-cream/ice-cream-img/1.png',
+					'../big-ice-cream/ice-cream-img/2.png',
+					'../big-ice-cream/ice-cream-img/3.png',
+					'../big-ice-cream/ice-cream-img/4.png',
+					'../big-ice-cream/ice-cream-img/5.png',
+				];
+				const eliminate = document.getElementsByClassName('eliminate_wrapper')[0];
+				const revolving = document.getElementsByClassName('revolving_light')[0];
+				let selectedPair = [];
+				for (let i = 0; i < eliminate.children.length; i++) {
+					let n = randomNum(1, 5);
+					eliminate.children[i].style.backgroundImage = `url('${imgs[n - 1]}')`;
+				}
+				// 默认选择1-5
+				// 合成67
+
+				eliminate.onclick = e => {
+					let tar = e.target || e.srcElement;
+					if (
+						tar.id.indexOf('eliminate') !== -1 &&
+						selectedPair.indexOf(tar.id) === -1 &&
+						selectedPair.length < 2
+					) {
+						selectedPair.push(tar);
+						tar.className = 'choose';
+					}
+					if (selectedPair.length === 2) {
+						if (selectedPair[0].style.backgroundImage === selectedPair[1].style.backgroundImage) {
+							let addImg = parseInt(
+								selectedPair[1].style.backgroundImage.split('ice-cream-img/')[1][0]
+							);
+							console.log(
+								addImg,
+								`url('../big-ice-cream/ice-cream-img/${addImg + 1}.png')`,
+								`url('${imgs[randomNum(1, 5) - 1]}')`
+							);
+							if (addImg < 6) {
+								selectedPair[1].style.backgroundImage = `url('../big-ice-cream/ice-cream-img/${
+									addImg + 1
+								}.png')`;
+								selectedPair[0].style.backgroundImage = `url('${imgs[randomNum(1, 5)]}')`;
+							}
+							if (addImg === 6) {
+								selectedPair[1].style.backgroundImage = `url('../big-ice-cream/ice-cream-img/${
+									addImg + 1
+								}.png')`;
+								selectedPair[0].style.backgroundImage = `url('${imgs[randomNum(1, 5)]}')`;
+								console.log('成功啦');
+							}
+						} else {
+							console.log('配对失败');
+						}
+						selectedPair[0].className = selectedPair[1].className = '';
+						selectedPair = [];
+					}
+				};
+
+				//生成从minNum到maxNum的随机数
+				function randomNum(minNum, maxNum) {
+					return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+				}
+			};
+		</script>
+	</body>
+</html>
