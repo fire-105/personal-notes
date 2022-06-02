@@ -4,137 +4,316 @@
  * @Autor: jiuyi
  * @Date: 2022-06-01 11:30:57
  * @LastEditors: jiuyi
- * @LastEditTime: 2022-06-01 18:01:45
+ * @LastEditTime: 2022-06-02 16:02:51
 -->
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-	</head>
-	<style>
-		body {
-			padding: 0;
-			margin: 0;
-		}
-		.summmer_wrapper {
-			position: relative;
-			width: 100vw;
-			height: 100vh;
-			/* background-color: rgb(91, 223, 201); */
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>合成大冰棍！>_< </title>
+	</title>
+</head>
+<style>
+	body {
+		padding: 0;
+		margin: 0;
+	}
+
+	.summmer_wrapper {
+		position: relative;
+		width: 100vw;
+		height: 100vh;
+		background-image: linear-gradient(to top, #c1dfc4 0%, #deecdd 100%);
+	}
+
+	.eliminate_wrapper {
+		position: absolute;
+		width: 640px;
+		height: 640px;
+		margin: auto;
+		padding: 10px;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		border-radius: 20px;
+		border: 10px solid #0ba360;
+		background: #fff;
+		display: grid;
+		grid-template-columns: repeat(5, 120px);
+		grid-template-rows: repeat(5, 120px);
+		grid-row-gap: 10px;
+		grid-column-gap: 10px;
+	}
+
+	.eliminate_wrapper div {
+		/* background-color: #000; */
+		width: 100%;
+		height: 100%;
+		border: 5px solid #96deda;
+		border-radius: 20px;
+		box-sizing: border-box;
+	}
+
+	/* 选中 */
+	.choose {
+		border: 5px solid #16a085 !important;
+	}
+
+	.success {
+		position: fixed;
+		border: 0 !important;
+		z-index: 10;
+		top: 0;
+		width: 0;
+		width: 100vw;
+		height: 100vh;
+		background-position: center;
+		background-size: 100%;
+		transition: 2s linear;
+	}
+
+	.success_text {
+		display: none;
+		position: fixed;
+		z-index: 11;
+		top: 20vh;
+		left: 0;
+		right: 0;
+		margin: auto;
+		width: 100vw;
+		text-align: center;
+	}
+
+	@keyframes text_animation {
+		0% {
+			transform: scale(1);
 		}
 
-		.eliminate_wrapper {
-			position: absolute;
-			width: 220px;
-			height: 220px;
-			margin: auto;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			border-radius: 20px;
-			border: 10px solid #fff;
-			background: #fff;
-			display: grid;
-			grid-template-columns: repeat(3, 60px);
-			grid-template-rows: repeat(3, 60px);
-			grid-row-gap: 10px;
-			grid-column-gap: 10px;
+		25% {
+			transform: scale(1.8);
 		}
-		.eliminate_wrapper div {
-			/* background-color: #000; */
-			width: 100%;
-			height: 100%;
-			border: 5px solid transparent;
-			border-radius: 20px;
-			box-sizing: border-box;
+
+		50% {
+			transform: scale(1);
 		}
-		/* 选中 */
-		.choose {
-			border: 5px solid rgb(4, 221, 250) !important;
+
+		75% {
+			transform: scale(1.8);
 		}
-		.success {
+	}
+
+	@keyframes btn_animation {
+		0% {
+			transform: scaleX(0.9);
 		}
-	</style>
-	<body>
-		<div class="summmer_wrapper">
-			<div class="eliminate_wrapper">
-				<div id="eliminate_1"></div>
-				<div id="eliminate_2"></div>
-				<div id="eliminate_3"></div>
-				<div id="eliminate_4"></div>
-				<div id="eliminate_5"></div>
-				<div id="eliminate_6"></div>
-				<div id="eliminate_7"></div>
-				<div id="eliminate_8"></div>
-				<div id="eliminate_9"></div>
-			</div>
-			<div class="success">
-				<p>成功啦!</p>
-				<img src="../big-ice-cream//ice-cream-img/7.png" alt="" />
+
+		20% {
+			transform: scaleX(1);
+		}
+
+		40% {
+			transform: scaleX(0.9);
+		}
+
+		60% {
+			transform: scaleX(1);
+		}
+
+		80% {
+			transform: scaleX(0.9);
+		}
+
+		100% {
+			transform: scaleX(1);
+		}
+	}
+
+	.success_text p {
+		font: bold 80px/100% '微软雅黑', 'Lucida Grande', 'Lucida Sans', Helvetica, Arial, Sans;
+		color: #fff;
+		text-transform: uppercase;
+		text-shadow: 1px 1px rgba(197, 223, 248, 0.8), 2px 2px rgba(197, 223, 248, 0.8),
+			3px 3px rgba(197, 223, 248, 0.8), 4px 4px rgba(197, 223, 248, 0.8),
+			5px 5px rgba(197, 223, 248, 0.8), 6px 6px rgba(197, 223, 248, 0.8);
+		-webkit-animation-name: text_animation;
+		-webkit-animation-timing-function: ease-in-out;
+		-webkit-animation-iteration-count: infinite;
+		-webkit-animation-duration: 2s;
+	}
+
+	.success_text div {
+		position: fixed;
+		width: 200px;
+		top: 50vh;
+		z-index: 15;
+		left: 0;
+		right: 0;
+		margin-right: auto;
+		margin-left: auto;
+		padding: 4px 20px;
+		border-radius: 40px;
+		background: transparent;
+		background-image: -webkit-linear-gradient(100deg, #f35626, #feab3a);
+		box-shadow: none;
+		color: #f35626;
+		font-weight: 700;
+		font-size: 40px;
+		cursor: pointer;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		box-shadow: 10px 4px #1ee9f0, 10px 4px 2px rgb(0 0 0 / 30%), 20px -4px #f9f871,
+			20px -4px 2px rgb(0 0 0 / 30%), 30px 8px#6CF7BF, 30px 8px 2px rgb(0 0 0 / 30%),
+			-10px -8px #28b78d, -10px -8px 2px rgb(0 0 0 / 30%), -20px 8px #c9fb85,
+			-20px 8px 2px rgb(0 0 0 / 30%);
+		opacity: 1;
+		-webkit-animation-name: btn_animation;
+		-webkit-animation-timing-function: ease-in-out;
+		-webkit-animation-iteration-count: infinite;
+		-webkit-animation-duration: 2s;
+	}
+
+	.success_text div:hover {
+		transform: translateY(0) scale(0.9);
+	}
+
+	.rule {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	}
+
+	.rule p {}
+
+	.rule div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.rule div img {
+		width: 20px;
+		height: 20px;
+	}
+</style>
+
+<body>
+	<div class="summmer_wrapper">
+		<div class="rule">
+			<p>合成规则：请按照下列次序合成大冰棍！点击相同的食物可以合成更大的食物哦~</p>
+			<div>
+				<img src="../big-ice-cream//ice-cream-img/1.png" alt="" /> ->
+				<img src="../big-ice-cream//ice-cream-img/2.png" alt="" /> ->
+				<img src="../big-ice-cream//ice-cream-img/3.png" alt="" /> ->
+				<img src="../big-ice-cream//ice-cream-img/4.png" alt="" /> ->
+				<img src="../big-ice-cream//ice-cream-img/5.png" alt="" /> ->
+				<img src="../big-ice-cream//ice-cream-img/6.png" alt="" /> ->
+				<img src="../big-ice-cream//ice-cream-img/7.png" alt="" /> ->
+				<img src="../big-ice-cream//ice-cream-img/8.png" alt="" /> ->
+				<img src="../big-ice-cream//ice-cream-img/9.png" alt="" /> ->
+				<img src="../big-ice-cream//ice-cream-img/10.png" alt="" /> ->
+				<img src="../big-ice-cream//ice-cream-img/11.png" alt="" /> ->
+				<img src="../big-ice-cream//ice-cream-img/12.png" alt="" /> ->
+				<img src="../big-ice-cream//ice-cream-img/13.png" alt="" /> ->
+				<img src="../big-ice-cream//ice-cream-img/14.png" alt="" /> ->
+				<img src="../big-ice-cream//ice-cream-img/15.png" alt="" /> ->
+				<img src="../big-ice-cream//ice-cream-img/16.png" alt="" />
 			</div>
 		</div>
+		<div class="eliminate_wrapper">
+		</div>
+		<div class="success_text">
+			<p>成功啦!</p>
+			<div>重新开始</div>
+		</div>
+	</div>
 
-		<script type="text/javascript">
-			window.onload = function () {
-				const imgs = [
-					'../big-ice-cream/ice-cream-img/1.png',
-					'../big-ice-cream/ice-cream-img/2.png',
-					'../big-ice-cream/ice-cream-img/3.png',
-					'../big-ice-cream/ice-cream-img/4.png',
-					'../big-ice-cream/ice-cream-img/5.png',
-				];
-				const eliminate = document.getElementsByClassName('eliminate_wrapper')[0];
-				const revolving = document.getElementsByClassName('revolving_light')[0];
-				let selectedPair = [];
-				for (let i = 0; i < eliminate.children.length; i++) {
-					let n = randomNum(1, 5);
-					eliminate.children[i].style.backgroundImage = `url('${imgs[n - 1]}')`;
+	<script type="text/javascript">
+		window.onload = function () {
+			const imgs = [
+				'../big-ice-cream/ice-cream-img/1.png',
+				'../big-ice-cream/ice-cream-img/2.png',
+				'../big-ice-cream/ice-cream-img/3.png',
+				'../big-ice-cream/ice-cream-img/4.png',
+				'../big-ice-cream/ice-cream-img/5.png',
+				'../big-ice-cream/ice-cream-img/6.png',
+				'../big-ice-cream/ice-cream-img/7.png',
+				'../big-ice-cream/ice-cream-img/8.png',
+				'../big-ice-cream/ice-cream-img/9.png',
+			];
+			const eliminate = document.getElementsByClassName('eliminate_wrapper')[0];
+			const revolving = document.getElementsByClassName('revolving_light')[0];
+			const restart = document.getElementsByClassName('success_text')[0];
+			const oFrag = document.createDocumentFragment();
+			for (let i = 0; i < 25; i++) {
+				let elem = document.createElement('div');
+				elem.id = `eliminate_${i + 1}`;
+				oFrag.appendChild(elem);
+			}
+			eliminate.appendChild(oFrag);
+			let selectedPair = [];
+			for (let i = 0; i < eliminate.children.length; i++) {
+				let n = randomNum(1, 9);
+				eliminate.children[i].style.backgroundImage = `url('${imgs[n - 1]}')`;
+				eliminate.children[i].style.backgroundRepeat = 'no-repeat';
+				eliminate.children[i].style.backgroundSize = '100%';
+			}
+
+
+			eliminate.onclick = e => {
+				let tar = e.target || e.srcElement;
+				if (tar === selectedPair[0] && selectedPair.length === 1) {
+					selectedPair[0].className = '';
+					selectedPair = [];
+					return;
 				}
-				// 默认选择1-5
-				// 合成67
-
-				eliminate.onclick = e => {
-					let tar = e.target || e.srcElement;
-					if (
-						tar.id.indexOf('eliminate') !== -1 &&
-						selectedPair.indexOf(tar.id) === -1 &&
-						selectedPair.length < 2
-					) {
-						selectedPair.push(tar);
-						tar.className = 'choose';
-					}
-					if (selectedPair.length === 2) {
-						if (selectedPair[0].style.backgroundImage === selectedPair[1].style.backgroundImage) {
-							let addImg = parseInt(
-								selectedPair[1].style.backgroundImage.split('ice-cream-img/')[1][0]
-							);
-							if (addImg <= 6) {
-								selectedPair[1].style.backgroundImage = `url('../big-ice-cream/ice-cream-img/${
-									addImg + 1
+				if (
+					tar.id.indexOf('eliminate') !== -1 &&
+					selectedPair.indexOf(tar) === -1 &&
+					selectedPair.length < 2
+				) {
+					selectedPair.push(tar);
+					tar.className = 'choose';
+				}
+				if (selectedPair.length === 2) {
+					if (selectedPair[0].style.backgroundImage === selectedPair[1].style.backgroundImage) {
+						let addImg = parseInt(
+							selectedPair[1].style.backgroundImage.split('ice-cream-img/')[1][0]
+						);
+						if (addImg <= 15) {
+							selectedPair[1].style.backgroundImage = `url('../big-ice-cream/ice-cream-img/${addImg + 1
 								}.png')`;
-								selectedPair[0].style.backgroundImage = `url('${imgs[randomNum(1, 5)]}')`;
-							}
-							if (addImg === 6) {
-								console.log('=============');
-							}
+							selectedPair[0].style.backgroundImage = `url('${imgs[randomNum(1, 9) - 1]}')`;
+							selectedPair[0].style.backgroundRepeat = selectedPair[1].style.backgroundRepeat =
+								'no-repeat';
+						}
+						if (addImg >= 15) {
+							selectedPair[1].className += ' success';
+							restart.style.display = 'block';
+						} else {
 							selectedPair[0].className = selectedPair[1].className = '';
 							selectedPair = [];
-						} else {
-							selectedPair[1].className = '';
-							selectedPair.pop();
 						}
+					} else {
+						selectedPair[1].className = '';
+						selectedPair.pop();
 					}
-				};
-
-				//生成从minNum到maxNum的随机数
-				function randomNum(minNum, maxNum) {
-					return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
 				}
 			};
-		</script>
-	</body>
+
+			restart.onclick = e => {
+				location.reload();
+			};
+			//生成从minNum到maxNum的随机数
+			function randomNum(minNum, maxNum) {
+				return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+			}
+		};
+	</script>
+</body>
+
 </html>
